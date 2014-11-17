@@ -5,89 +5,111 @@
 
 #include "menu.h"
 
-#define LIST_MAX_LEN 10
-
-
-typedef struct _Node {
+typedef struct NODE {
   int value;
-  struct _Node *next;
-};
+  struct NODE *next;
+} Node;
 
-typedef struct _Node Node;
+typedef struct LIST {
+  Node *last;
+  Node *first;
+} List;
 
-void inserti(Node **node, int x)
-{
-	struct node *new;
-
-	if ((p = malloc(sizeof(struct node))) == NULL)
-		printf("Memory allocation error");
-	else{
-		p->left  = NULL;
-		p->info  = x;
-		p->right = *list;
-
-		if(*list != NULL)
-			(*list)->left = p;
-
-		*list = p;
-	}
-}
-
-/*void init(Node *node)*/
-/*{*/
-  /*Node p;*/
-  /*p.next = NULL;*/
-  /*return &p;:*/
-/*}*/
-
-void display(Node *list)
+void display(List *list)
 {
   Node *p;
-  for (p = list->prox, index=0; p != NULL; index++, p = p->prox) 
+  int index;
+
+  for (index=0,p=list->first->next; p != NULL;index++,p=p->next) {
     printf("%d - %d\n", index, p->value);
+  }
 }
 
-void insert(Node **list, int x)
+Node *insert(List *list, int x)
 {
-	Node *p;
-
-	if ((p = malloc(sizeof(Node))) == NULL)
+	if ((list->last->next = malloc(sizeof(Node))) == NULL)
 		printf("Memory allocation error");
-	else{
-		p->value  = x;
-		p->next = *list;
+	else {
+    list->last = list->last->next;
+    list->last->value = x;
+    list->last->next = NULL;
 
-		*list = p;
+    return list->last;
+	}
+
+  return NULL;
+}
+
+Node *find(List *list, int x)
+{
+  Node *p;
+  int index;
+
+  if (x == -1) return list->first;
+
+  for (index=0,p=list->first; p != NULL;index++,p=p->next) {
+    if(index==x) return p;
+  }
+
+	return NULL;
+}
+
+void change(Node *node, int new)
+{
+  if (node != NULL) node->value = new;
+}
+
+bool isEmpty(List *list)
+{
+  return (list->first == list->last);
+}
+
+bool delete(List *list, Node *p)
+{
+  Node *pdel;
+  int value;
+
+  if (isEmpty(list) || p == NULL || (pdel = p->next) == NULL) return false;
+
+  p->next = p->next->next;
+  value   = pdel->value;
+
+  if (p->next == NULL) list->last = p;
+  free(pdel);
+
+  return value;
+}
+
+void initialize(List *list)
+{
+	if ((list->first = malloc(sizeof(Node))) == NULL)
+		printf("Memory allocation error");
+	else {
+    list->last = list->first;
+    list->last->value = 0;
+    list->last->next = NULL;
 	}
 }
 
-Node *find(Node *list, int x)
+void destroy(List *list)
 {
-	while(list!=NULL){
-		if (list->info == x)
-			return list;
-
-		list=list->next;
-	}
-	return NULL;
+  while(! isEmpty(list)) delete(list, list->first);
 }
 
 int ex1(void)
 {
-  Node first, *list;
-  int loop;
-  int value;
-  char options="\n 1 - Display \n 2 - Insert \n 3 - Change \n 4 - Find \n 5 - Remove \n 0 - Exit";
-
-  first.next = NULL;
-  list = &first;
+  List list;
+  int loop, value, valueNew;
+  char *options="\n 1 - Display \n 2 - Insert \n 3 - Change \n 4 - Find \n 5 - Remove \n 6 - Destroy \n 0 - Exit\0";
 
   loop = 1;
+
+  initialize(&list);
 
   while (loop) {
     switch(menu(options)) {
       case 1:
-        display(list);
+        display(&list);
         break;
 
       case 2:
@@ -97,29 +119,31 @@ int ex1(void)
         break;
 
       case 3:
-        printf("Number to find: ");
+        printf("Element to Change: ");
         scanf("%d", &value);
-        printf("Element is: %d ", find(list, value));
+        printf("New number: ");
+        scanf("%d", &valueNew);
+        change(find(&list, value), valueNew);
+        printf("Element Changed");
         break;
 
-      /*case 5:*/
-        /*printf("Number to Remove: ");*/
-        /*scanf("%d", &value);*/
-        /*remove_element(&list, find(list, value));*/
-        /*printf("Element Removed");*/
-        /*break;*/
+      case 4:
+        printf("Element index: ");
+        scanf("%d", &value);
+        printf("Element Value is: %d ", (find(&list, value))->value);
+        break;
 
-      /*case 6:*/
-        /*printf("Number to insert end: ");*/
-        /*scanf("%d", &value);*/
-        /*insert_end(&list, value);*/
-        /*break;*/
+      case 5:
+        printf("Element index: ");
+        scanf("%d", &value);
+        delete(&list, find(&list, value));
+        printf("Element Removed");
+        break;
 
-      /*case 7:*/
-        /*printf("Number to insert middle: ");*/
-        /*scanf("%d", &value);*/
-        /*insert_middle(&list, value);*/
-        /*break;*/
+      case 6:
+        destroy(&list);
+        printf("Destroyed");
+        break;
 
       case 0:
         loop=0;

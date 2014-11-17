@@ -8,9 +8,9 @@ runner: runner.o ex1.o
 	@echo CC -o $@
 	@${CC} -o $@ runner.o ex1.o
 
-program: program.o ex1.o
+program: program.o ex1.o menu.o
 	@echo CC -c -o $@
-	@${CC} -o $@ program.o ex1.o
+	@${CC} -o $@ program.o ex1.o menu.o
 
 ex1: ${OBJ}
 	@echo CC -o $@

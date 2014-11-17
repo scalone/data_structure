@@ -5,8 +5,10 @@
 
 int menu(char *options)
 {
+  int option;
+
   printf("\n Menu");
-  printf(options);
+  printf("%s", options);
   printf("\n Option: ");
 
   scanf("%d", &option);
