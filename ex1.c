@@ -13,6 +13,7 @@ typedef struct NODE {
 typedef struct LIST {
   Node *last;
   Node *first;
+  int top;
 } List;
 
 void display(List *list)
@@ -25,33 +26,35 @@ void display(List *list)
   }
 }
 
-Node *insert(List *list, int x)
-{
-	if ((list->last->next = malloc(sizeof(Node))) == NULL)
-		printf("Memory allocation error");
-	else {
-    list->last = list->last->next;
-    list->last->value = x;
-    list->last->next = NULL;
-
-    return list->last;
-	}
-
-  return NULL;
-}
-
 Node *find(List *list, int x)
 {
   Node *p;
   int index;
-
-  if (x == -1) return list->first;
 
   for (index=0,p=list->first; p != NULL;index++,p=p->next) {
     if(index==x) return p;
   }
 
 	return NULL;
+}
+
+void insert(List *list, int value, int position)
+{
+  Node *p;
+  Node *old;
+  Node *aux;
+
+  if ((p = malloc(sizeof(Node))) == NULL)
+    printf("Memory allocation error");
+  else {
+    p->value = value;
+    old = (position == -1) ? find(list, list->top) : find(list, position);
+    aux = old->next;
+    old->next = p;
+    p->next = aux;
+    list->top++;
+    if (aux == NULL) list->last = p;
+  }
 }
 
 void change(Node *node, int new)
@@ -75,6 +78,7 @@ bool delete(List *list, Node *p)
   value   = pdel->value;
 
   if (p->next == NULL) list->last = p;
+  list->top--;
   free(pdel);
 
   return value;
@@ -88,6 +92,7 @@ void initialize(List *list)
     list->last = list->first;
     list->last->value = 0;
     list->last->next = NULL;
+    list->top = 0;
 	}
 }
 
@@ -100,7 +105,7 @@ int ex1(void)
 {
   List list;
   int loop, value, valueNew;
-  char *options="\n 1 - Display \n 2 - Insert \n 3 - Change \n 4 - Find \n 5 - Remove \n 6 - Destroy \n 0 - Exit\0";
+  char *options="\n 1 - Display \n 2 - insert \n 3 - insert in position \n 4 - Change \n 5 - Find \n 6 - Remove \n 7 - Destroy \n 0 - Exit\0";
 
   loop = 1;
 
@@ -115,10 +120,18 @@ int ex1(void)
       case 2:
         printf("Number to insert: ");
         scanf("%d", &value);
-        insert(&list, value);
+        insert(&list, value, -1);
         break;
 
       case 3:
+        printf("Number to insert: ");
+        scanf("%d", &value);
+        printf("Index to insert: ");
+        scanf("%d", &valueNew);
+        insert(&list, value, valueNew);
+        break;
+
+      case 4:
         printf("Element to Change: ");
         scanf("%d", &value);
         printf("New number: ");
@@ -127,20 +140,20 @@ int ex1(void)
         printf("Element Changed");
         break;
 
-      case 4:
+      case 5:
         printf("Element index: ");
         scanf("%d", &value);
         printf("Element Value is: %d ", (find(&list, value))->value);
         break;
 
-      case 5:
+      case 6:
         printf("Element index: ");
         scanf("%d", &value);
         delete(&list, find(&list, value));
         printf("Element Removed");
         break;
 
-      case 6:
+      case 7:
         destroy(&list);
         printf("Destroyed");
         break;
