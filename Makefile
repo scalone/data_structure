@@ -1,10 +1,10 @@
-compile: ex3 ex2 ex1 program
+compile: ex3.o ex2.o ex1.o program
 
 .c.o:
 	@echo CC $<
 	@${CC} -c ${CFLAGS} $<
 
-runner: runner.o ex3 ex1.o ex2.o
+runner: runner.o ex3.o ex1.o ex2.o
 	@echo CC -o $@
 	@${CC} -o $@ runner.o ex3.o ex1.o ex2.o
 
