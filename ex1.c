@@ -16,7 +16,7 @@ typedef struct LIST {
   int top;
 } List;
 
-void display(List *list)
+void EX1_display(List *list)
 {
   Node *p;
   int index;
@@ -26,7 +26,7 @@ void display(List *list)
   }
 }
 
-Node *find(List *list, int x)
+Node *EX1_find(List *list, int x)
 {
   Node *p;
   int index;
@@ -38,7 +38,7 @@ Node *find(List *list, int x)
 	return NULL;
 }
 
-void insert(List *list, int value, int position)
+void EX1_insert(List *list, int value, int position)
 {
   Node *p;
   Node *old;
@@ -48,7 +48,7 @@ void insert(List *list, int value, int position)
     printf("Memory allocation error");
   else {
     p->value = value;
-    old = (position == -1) ? find(list, list->top) : find(list, position);
+    old = (position == -1) ? EX1_find(list, list->top) : EX1_find(list, position);
     aux = old->next;
     old->next = p;
     p->next = aux;
@@ -57,7 +57,7 @@ void insert(List *list, int value, int position)
   }
 }
 
-void change(Node *node, int new)
+void EX1_change(Node *node, int new)
 {
   if (node != NULL) node->value = new;
 }
@@ -109,18 +109,20 @@ int ex1(void)
 
   loop = 1;
 
+  printf("\n Exercise 1\n");
+
   initialize(&list);
 
   while (loop) {
     switch(menu(options)) {
       case 1:
-        display(&list);
+        EX1_display(&list);
         break;
 
       case 2:
         printf("Number to insert: ");
         scanf("%d", &value);
-        insert(&list, value, -1);
+        EX1_insert(&list, value, -1);
         break;
 
       case 3:
@@ -128,7 +130,7 @@ int ex1(void)
         scanf("%d", &value);
         printf("Index to insert: ");
         scanf("%d", &valueNew);
-        insert(&list, value, valueNew);
+        EX1_insert(&list, value, valueNew);
         break;
 
       case 4:
@@ -136,20 +138,20 @@ int ex1(void)
         scanf("%d", &value);
         printf("New number: ");
         scanf("%d", &valueNew);
-        change(find(&list, value), valueNew);
+        EX1_change(EX1_find(&list, value), valueNew);
         printf("Element Changed");
         break;
 
       case 5:
         printf("Element index: ");
         scanf("%d", &value);
-        printf("Element Value is: %d ", (find(&list, value))->value);
+        printf("Element Value is: %d ", (EX1_find(&list, value))->value);
         break;
 
       case 6:
         printf("Element index: ");
         scanf("%d", &value);
-        delete(&list, find(&list, value));
+        delete(&list, EX1_find(&list, value));
         printf("Element Removed");
         break;
 
