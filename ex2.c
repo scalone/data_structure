@@ -53,12 +53,14 @@ void EX2_insert(List *list, int value, int position)
     aux = old->next;
 
     p->next = aux;
-    aux->previous = p;
     old->next = p;
     p->previous = old;
 
     list->top++;
-    if (aux == NULL) list->last = p;
+    if (aux == NULL)
+      list->last = p;
+    else
+      aux->previous = p;
   }
 }
 
