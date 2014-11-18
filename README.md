@@ -1,20 +1,16 @@
-# C Algorithms
+# Project Data Structure Algorithms
 
-Academic project to apply data structure concepts and in a future GC and runtimes varieties.
+Academic project to apply data structure concepts.
 
 
 ## Algorithms
 
-- Queue static.
-- Stack statuc.
-- List singly linked static.
-- Queue dynamic.
-- Stack dynamic.
-- List singly linked dynamic.
-- List doubly linked dynamic.
+- Exercise 1, Simply linked Linear List with dummy head.
+- Exercise 2, Doubly linked Linear List with dummy head.
+- Exercise 3, Stack in dynamic memory allocation.
+- Exercise 4, Queue in dynamic memory allocation to Medical Clinic management.
 
-
-## Usage
+## Build
 
 To compile
 
@@ -24,6 +20,15 @@ To clean
 
 	$ make clean
 
+## Usage
+
+	$ program <exercise>
+
+	ex1, Simply linked Linear List with dummy head
+	ex2, Doubly linked Linear List with dummy head
+	ex3, Stack in dynamic memory allocation
+	ex4, Queue in dynamic memory allocation to Medical Clinic management
+	-h, --help, Help
 
 ## Contributing
 
