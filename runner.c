@@ -2,7 +2,11 @@
 
 #include <stdio.h>
 
-#include "sut.h"
+#include "menu.h"
+#include "ex1.h"
+#include "ex2.h"
+#include "ex3.h"
+#include "ex4.h"
 
 int tests_run = 0;
 
@@ -10,21 +14,13 @@ int tests_run = 0;
 #define _assert(test) do { if (!(test)) { FAIL(); return 1; } } while(0)
 #define _verify(test) do { int r=test(); tests_run++; if(r) return r; } while(0)
 
-int test_square() {
-	int x=5;
-	_assert(square(x) == 25);
-	return 0;
-}
-
-int test_square_fail() {
-	int x=6;
-	_assert(square(x) != 25);
+int test_sample() {
+	_assert(true);
 	return 0;
 }
 
 int all_tests() {
-	_verify(test_square);
-	_verify(test_square_fail);
+	_verify(test_sample);
 	return 0;
 }
 
