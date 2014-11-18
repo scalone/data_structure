@@ -12,13 +12,18 @@ Academic project to apply data structure concepts.
 
 ## Build
 
-To compile
+Clone
+	
+	$ git clone git@github.com:scalone/data_structure.git
+	$ cd data_structure
 
-	$ make
-
-To clean
+Clean
 
 	$ make clean
+
+Compile
+
+	$ make
 
 ## Test
 
