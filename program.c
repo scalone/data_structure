@@ -5,6 +5,7 @@
 #include "ex1.h"
 #include "ex2.h"
 #include "ex3.h"
+#include "ex4.h"
 
 void print_usage(void)
 {
@@ -29,7 +30,8 @@ int main(int argc, char **argv)
     ex2();
   else if (strcmp("ex3", (const char *)argv[1]) == 0)
     ex3();
-  else if (strcmp("ex4", (const char *)argv[1]) == 0) {}
+  else if (strcmp("ex4", (const char *)argv[1]) == 0)
+    ex4();
   else
     print_usage();
 
