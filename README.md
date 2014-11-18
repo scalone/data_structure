@@ -15,10 +15,20 @@ Academic project to apply data structure concepts.
 To compile
 
 	$ make
-	
+
 To clean
 
 	$ make clean
+
+## Test
+
+Compile
+
+	$ make runner
+
+Run
+
+	$ ./runnner
 
 ## Usage
 
