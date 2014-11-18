@@ -13,7 +13,7 @@ Academic project to apply data structure concepts.
 ## Build
 
 Clone
-	
+
 	$ git clone git@github.com:scalone/data_structure.git
 	$ cd data_structure
 
@@ -37,7 +37,7 @@ Run
 
 ## Usage
 
-	$ program <exercise>
+	$ ./program <exercise>
 
 	ex1, Simply linked Linear List with dummy head
 	ex2, Doubly linked Linear List with dummy head
