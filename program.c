@@ -14,7 +14,7 @@ void print_usage(void)
     printf("\tex2, Doubly linked Linear List with dummy head\n");
     printf("\tex3, Stack in dynamic memory allocation\n");
     printf("\tex4, Queue in dynamic memory allocation to Medical Clinic management\n");
-    printf("\t-h, --help                Help\n");
+    printf("\t-h, --help, Help\n");
 }
 
 int main(int argc, char **argv)
